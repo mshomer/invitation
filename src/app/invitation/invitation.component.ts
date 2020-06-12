@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Invitation } from './../models/invitation.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { InvitationService } from '../services/invitation.service';
 
 @Component({
@@ -29,10 +29,13 @@ export class InvitationComponent implements OnInit {
           return;
         }
         const invitation = this.service.getInvitation(this.id);
-        if (!invitation) {
-          this.router.navigateByUrl('/');
-          return;
-        }
+
+        invitation.pipe(take(1)).subscribe((invitation) => {
+          if (!invitation.id) {
+            this.router.navigateByUrl('page-not-found');
+          }
+        });
+
         return invitation;
       })
     );

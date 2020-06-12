@@ -13,6 +13,7 @@ import { InvitationService } from './services/invitation.service';
 import { AuthService } from './services/auth.service';
 import { AppLoadService } from './services/app-load.service';
 import { SignLayoutModule } from './components/sign-layout/sign-layout.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 registerLocaleData(localeHe);
 
@@ -21,7 +22,7 @@ export function initApp(appLoadService: AppLoadService) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     NgbModule,
