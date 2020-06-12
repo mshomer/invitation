@@ -1,0 +1,25 @@
+button:focus {
+  outline: none;
+}
+
+.box {
+  width: 70px;
+  height: 70px;
+  margin: 0px 18px 0px 18px;
+  display: inline-block;
+  padding: 3px;
+  border: solid 1px #2e2e2e;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+
+  h3 {
+    line-height: 23px;
+    color: #545454;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  fa-icon {
+    font-size: 23px;
+  }
+}

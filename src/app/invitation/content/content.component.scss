@@ -1,0 +1,43 @@
+#invitation-content {
+  font-size: 18px;
+  width: 100%;
+  margin-bottom: 70px;
+
+  .content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    p {
+      margin-bottom: 0;
+      line-height: 24px;
+    }
+  }
+
+  .info-buttons {
+    display: flex;
+    justify-content: space-evenly;
+
+    button:hover i,
+    button:hover fa-icon {
+      background: white;
+      color: #007bff;
+    }
+
+    i,
+    fa-icon {
+      border: 1px solid #007bff;
+      border-radius: 50%;
+      padding: 5px;
+      background: #007bff;
+      color: white;
+      width: 27px;
+      margin-right: 2px;
+      display: inline-block;
+    }
+
+    fa-icon {
+      width: 30px;
+      padding: 3px;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div class="mb-3">
+  <button class="btn btn-outline-secondary" routerLink="/">Back</button>
+</div>
+
+<table class="table table-striped" dir="ltr">
+  <thead>
+    <tr>
+      <th scope="col" sortable="userName" (sort)="onSort($event)">Name</th>
+      <th scope="col" sortable="userPhone" (sort)="onSort($event)">Phone</th>
+      <th scope="col" sortable="totalPeople" (sort)="onSort($event)">
+        Total People
+      </th>
+      <th scope="col" sortable="approveStatus" (sort)="onSort($event)">
+        Status
+      </th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of sortService.items$ | async">
+      <th scope="row">{{ item.userName }}</th>
+      <th scope="row">{{ item.userPhone }}</th>
+      <th scope="row">{{ item.totalPeople }}</th>
+      <th scope="row">{{ item.approveStatus }}</th>
+      <th scope="row">{{ item.note }}</th>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination
+    [collectionSize]="(sortService.total$ | async)!"
+    [(page)]="sortService.page"
+    [pageSize]="sortService.pageSize"
+  >
+  </ngb-pagination>
+
+  <select
+    class="custom-select w-auto"
+    name="pageSize"
+    [(ngModel)]="sortService.pageSize"
+  >
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+</div>

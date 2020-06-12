@@ -1,0 +1,150 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" [class.sent]="formSubmited">
+  <div class="border-line mb-4 position-relative">
+    <div class="title">האם הינך מגיע\ה?</div>
+  </div>
+
+  <div class="statuses mb-5">
+    <input
+      type="radio"
+      class="d-none"
+      id="yes"
+      name="approveStatus"
+      value="yes"
+      formControlName="approveStatus"
+      [attr.disabled]="formSubmited ? '' : null"
+    />
+    <label
+      for="yes"
+      class="btn btn-outline-secondary ml-2"
+      [class.active]="approveStatus === 'yes'"
+    >
+      מגיע
+    </label>
+    <input
+      type="radio"
+      class="d-none"
+      id="maybe"
+      name="approveStatus"
+      value="maybe"
+      formControlName="approveStatus"
+      [attr.disabled]="formSubmited ? '' : null"
+    />
+    <label
+      for="maybe"
+      class="btn btn-outline-secondary ml-2"
+      [class.active]="approveStatus === 'maybe'"
+      >אולי ?</label
+    >
+    <input
+      type="radio"
+      class="d-none"
+      id="no"
+      name="approveStatus"
+      value="no"
+      formControlName="approveStatus"
+      [attr.disabled]="formSubmited ? '' : null"
+    />
+    <label
+      for="no"
+      class="btn btn-outline-secondary"
+      [class.active]="approveStatus === 'no'"
+      >לא מגיע</label
+    >
+  </div>
+
+  <div
+    class="total-people"
+    [class.fade-in-animation]="approveStatus === 'yes'"
+    [class.fade-out-animation]="
+      approveStatus !== undefined && approveStatus !== 'yes'
+    "
+  >
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-circle"
+      id="sub"
+      [disabled]="totalPeople <= 0 || formSubmited"
+      (click)="totalPeople = totalPeople - 1"
+    >
+      -
+    </button>
+    <div class="mx-3">
+      <input
+        type="number"
+        required
+        min="0"
+        max="50"
+        formControlName="totalPeople"
+        [attr.disabled]="formSubmited ? '' : null"
+      />
+      <p class="fs-14 mt-2">(כמה מגיעים)</p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-circle"
+      id="add"
+      [disabled]="totalPeople >= 50 || formSubmited"
+      (click)="totalPeople = totalPeople + 1"
+    >
+      +
+    </button>
+  </div>
+
+  <div class="letter">
+    <div class="side details">
+      <div class="form-group">
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          formControlName="userName"
+          required
+        />
+        <label for="name" class="form-label-control">שם מלא</label>
+      </div>
+
+      <div class="form-group">
+        <input
+          id="phone"
+          type="tel"
+          class="form-control"
+          formControlName="userPhone"
+          required
+        />
+        <label for="phone" class="form-label-control">נייד</label>
+      </div>
+    </div>
+
+    <div id="note">
+      <a
+        data-toggle="collapse"
+        href="#collapseNote"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseNote"
+        (click)="collapseNote.show = !collapseNote.show"
+      >
+        {{ collapseNote.show ? "ברכה / הערה:" : "+ הוסיפו ברכה / הערה" }}
+      </a>
+      <div #collapseNote class="collapse form-group" id="collapseNote">
+        <textarea
+          class="form-control"
+          formControlName="note"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="side approve-btn">
+      <button class="btn btn-secondary" type="submit" [disabled]="!form.valid">
+        שלח\י אישור הגעה
+      </button>
+    </div>
+  </div>
+  <div class="position-relative">
+    <div class="envelope front"></div>
+    <div class="envelope back"></div>
+    <p class="result-message centered">תודה על אישור ההזמנה</p>
+  </div>
+</form>

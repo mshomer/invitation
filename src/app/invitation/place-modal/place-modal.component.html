@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <button
+    type="button"
+    class="close position-absolute"
+    aria-label="Close"
+    (click)="activeModal.dismiss('close')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div class="m-auto text-center">
+    <h3>{{ place.name }}</h3>
+    <p>כתובת: {{ place.location }}</p>
+  </div>
+</div>
+<div class="modal-body">
+  <img class="w-100 h-100" [src]="place.image" />
+
+  <div class="mt-4 d-flex justify-content-center">
+    <ng-container
+      *ngTemplateOutlet="
+        boxTemplate;
+        context: { text: 'טלפון', icon: faPhoneAlt, value: place.phone }
+      "
+    ></ng-container>
+
+    <ng-container
+      *ngTemplateOutlet="
+        boxTemplate;
+        context: {
+          text: 'נווט',
+          icon: faWaze,
+          value: safeWazeLink
+        }
+      "
+    ></ng-container>
+
+    <ng-container
+      *ngTemplateOutlet="
+        boxTemplate;
+        context: {
+          text: 'פייסבוק',
+          icon: faFacebook,
+          value: place.facebook
+        }
+      "
+    ></ng-container>
+
+    <ng-container
+      *ngTemplateOutlet="
+        boxTemplate;
+        context: { text: 'אתר', icon: faHome, value: place.website }
+      "
+    ></ng-container>
+  </div>
+</div>
+
+<ng-template #boxTemplate let-text="text" let-value="value" let-icon="icon">
+  <a [href]="value">
+    <div class="box">
+      <h3>{{ text }}</h3>
+      <fa-icon [icon]="icon"></fa-icon>
+    </div>
+  </a>
+</ng-template>

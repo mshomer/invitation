@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="signIn()">
+  <div>
+    <h1>Sign in</h1>
+    <input type="email" formControlName="email" placeholder="Email" />
+    <div class="error" *ngIf="!email.valid && email.touched">
+      <label>
+        Should be a valid email address
+      </label>
+    </div>
+    <input type="password" formControlName="password" placeholder="Password" />
+    <div class="error" *ngIf="!password.valid && password.touched">
+      <label>
+        Should at least be 6 characters long
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!form.valid">Sign In</button>
+</form>

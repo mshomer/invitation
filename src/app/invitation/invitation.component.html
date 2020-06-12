@@ -1,0 +1,17 @@
+<div class="container" *ngIf="invitation$ | async as invitation">
+  <header>
+    <div class="title">הזמנה ל{{ invitation.type.name }}</div>
+
+    <div class="cover-image">
+      <img [src]="invitation.image" />
+    </div>
+  </header>
+
+  <app-content class="d-block w-100" [invitation]="invitation"></app-content>
+
+  <app-form [id]="id" class="d-block w-100"></app-form>
+
+  <footer>
+    <span>© כל הזכויות שמורות 2020</span>
+  </footer>
+</div>

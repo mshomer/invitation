@@ -1,0 +1,119 @@
+<div class="modal-header text-center">
+  <h4 class="modal-title w-100 font-weight-bold">
+    <fa-icon class="mr-2" [icon]="faCalendarDay"></fa-icon>{{ title }}
+  </h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('close')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-row">
+      <app-input
+        class="col-12"
+        label="Type"
+        type="select"
+        [options]="types$ | async"
+        controlName="type"
+      ></app-input>
+
+      <app-input
+        class="col-12"
+        label="Date"
+        type="datetime-local"
+        controlName="date"
+      ></app-input>
+
+      <app-input
+        class="col-12"
+        label="Content"
+        type="texteara"
+        controlName="content"
+      ></app-input>
+
+      <app-input
+        class="col-12"
+        label="Image"
+        type="file"
+        controlName="image"
+        (change)="onFileChange($event, 'fileSource')"
+      ></app-input>
+
+      <div class="image-preview" *ngIf="form.get('fileSource').value">
+        <img [src]="form.get('fileSource').value" />
+      </div>
+
+      <div class="form-groups" [formGroup]="form.controls.place">
+        <h3 class="pl-4">Place</h3>
+
+        <app-input
+          class="col-6"
+          label="Name"
+          type="text"
+          controlName="name"
+        ></app-input>
+        <app-input
+          class="col-6"
+          label="Location"
+          type="text"
+          controlName="location"
+        ></app-input>
+        <app-input
+          class="col-6"
+          label="WebSite"
+          type="text"
+          controlName="website"
+        ></app-input>
+        <app-input
+          class="col-6"
+          label="Phone"
+          type="tel"
+          controlName="phone"
+        ></app-input>
+        <app-input
+          class="col-6"
+          label="Facebook"
+          type="text"
+          controlName="facebook"
+        ></app-input>
+        <app-input
+          class="col-6"
+          label="Image"
+          type="file"
+          controlName="image"
+          (change)="onFileChange($event, 'place.fileSource')"
+        ></app-input>
+
+        <div class="image-preview" *ngIf="form.get('place.fileSource').value">
+          <img [src]="form.get('place.fileSource').value" />
+        </div>
+      </div>
+
+      <div class="form-array w-100">
+        <h3 class="pl-4">Owners</h3>
+        <a class="btn text-dark ml-4" (click)="addOwner()">Add owner</a>
+
+        <ng-container [formGroup]="owners" formArrayName="owners">
+          <div *ngFor="let owner of owners.controls; let i = index">
+            <app-input
+              class="col-12"
+              type="text"
+              [controlName]="i.toString()"
+              inputGroup="X"
+              (inputGroupClick)="removeOwner(i)"
+            ></app-input>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-center">
+    <button type="submit" class="btn btn-outline-secondary">Save</button>
+  </div>
+</form>

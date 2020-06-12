@@ -1,0 +1,58 @@
+<div class="content">
+  <div class="card" *ngFor="let invitation of invitations$ | async">
+    <div class="icon">
+      <i class="{{ invitation.type.faIcon }}"></i>
+    </div>
+
+    <div class="title">
+      <p>{{ invitation.type.name }}</p>
+
+      <p>{{ invitation.place.name }}</p>
+      <p>{{ invitation.date | date }}</p>
+    </div>
+
+    <div class="hidden-section">
+      <a class="text-light ml-4 cursor-pointer" [routerLink]="invitation.id">
+        <span class="fa fa-table fs-25"></span>
+      </a>
+      <a
+        class="text-light ml-4 cursor-pointer"
+        (click)="openInvitation(invitation)"
+        ><span class="fa fa-edit fs-25"></span
+      ></a>
+      <a class="text-light cursor-pointer" (click)="shareLink(invitation.id)"
+        ><span class="fa fa-share-alt fs-25"></span
+      ></a>
+    </div>
+  </div>
+  <div class="card">
+    <a
+      id="new-card"
+      class="text-light cursor-pointer"
+      (click)="openInvitation()"
+    >
+      <span class="fa fa-plus mb-3"></span>
+      Add Invitation
+    </a>
+  </div>
+</div>
+
+<ngb-toast
+  dir="ltr"
+  header="Copy Invitation URL"
+  [class.hide]="!invitationURLCopied"
+  [autohide]="true"
+  [delay]="timeOut"
+  (hide)="invitationURLCopied = false"
+>
+  <ng-template ngbToastHeader>
+    <span>Copy Invitation URL</span>
+    <div id="countdown">
+      <div #countdownNumber id="countdown-number"></div>
+      <svg #svg>
+        <circle r="12" cx="20" cy="20"></circle>
+      </svg>
+    </div>
+  </ng-template>
+  Share the following URL with the members you want to invite.
+</ngb-toast>
